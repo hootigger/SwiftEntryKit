@@ -63,7 +63,8 @@ final class EKWindowProvider: EntryPresenterDelegate {
             return nil
         }
         entryVC.setStatusBarStyle(for: attributes)
-
+        entryVC.setSupportedInterfaceOrientation(for: attributes)
+        
         entryWindow.windowLevel = attributes.windowLevel.value
         if presentInsideKeyWindow {
             entryWindow.makeKeyAndVisible()

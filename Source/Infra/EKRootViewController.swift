@@ -57,9 +57,11 @@ class EKRootViewController: UIViewController {
         return lastAttributes.positionConstraints.rotation.isEnabled
     }
     
+    private var supportedInterfaceOrientation: UIInterfaceOrientationMask?
+
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         guard let lastAttributes = lastAttributes else {
-            return super.supportedInterfaceOrientations
+            return supportedInterfaceOrientation ?? super.supportedInterfaceOrientations
         }
         switch lastAttributes.positionConstraints.rotation.supportedInterfaceOrientations {
         case .standard:
@@ -123,6 +125,15 @@ class EKRootViewController: UIViewController {
     // Set status bar
     func setStatusBarStyle(for attributes: EKAttributes) {
         statusBar = attributes.statusBar
+    }
+
+    func setSupportedInterfaceOrientation(for attributes: EKAttributes) {
+        switch attributes.positionConstraints.rotation.supportedInterfaceOrientations {
+        case let .specified(orientation):
+            supportedInterfaceOrientation = orientation
+        default:
+            supportedInterfaceOrientation = nil
+        }
     }
     
     // MARK: - Setup
